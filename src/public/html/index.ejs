@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Encrypted Chat</title>
+        <link rel='stylesheet' href='stylesheet.css'>
+        <script src="/jsencrypt/jsencrypt.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/index.js" defer></script>
+    </head>
+    <body>
+        <div class='sidebar'>
+            <div class='holder' id='room-holder'>
+
+            </div>
+            <div class='add-room' id='room-join'>
+                <div class='center'>
+                    Join a Room
+                </div>
+            </div>
+        </div>
+        <div class='chat' id='chat'></div>
+        <input type='text' class='input' id='chatbox'></input>
+    </body>
+</html>
