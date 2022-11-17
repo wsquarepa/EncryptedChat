@@ -106,6 +106,10 @@ app.get("/jsencrypt/jsencrypt.min.js", (req, res) => {
     res.sendFile(__dirname + "/public/javascript/jsencrypt.min.js")
 })
 
+app.get("/dompurify/purify.min.js", (req, res) => {
+    res.sendFile(__dirname + "/public/javascript/purify.min.js")
+})
+
 app.use((req, res, next) => {
     res.status(404).send("404 | Not Found")
 })
@@ -123,8 +127,8 @@ io.on("connection", (socket) => {
             return;
         }
 
-        if (msg.length > MAX_ROOM_NAME_SIZE) {
-            socket.emit("error", "Room name too long")
+        if (msg == null || msg.length < 1 || msg.length > MAX_ROOM_NAME_SIZE) {
+            socket.emit("error", "Bad room name")
             return;
         }
 

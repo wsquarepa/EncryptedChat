@@ -35,7 +35,7 @@
             const roomNameDiv = document.createElement("div")
             roomNameDiv.classList.add("center")
 
-            roomNameDiv.innerHTML = (room == 'self'? "Self: " + socket.id : room)
+            roomNameDiv.innerHTML = DOMPurify.sanitize(room == 'self'? "Self: " + socket.id : room)
 
             if (room == 'self') {
                 roomNameDiv.style.fontSize = '12px'
@@ -69,8 +69,12 @@
             const decrypt = new JSEncrypt();
             decrypt.setPrivateKey(privateKey);
 
-            fromDiv.innerHTML = message.from
-            msgDiv.innerHTML = (message.from == socket.id? message.message : decrypt.decrypt(message.message));
+            const sanitizedMessage = DOMPurify.sanitize((message.from == socket.id? message.message : decrypt.decrypt(message.message)))
+            
+            if (sanitizedMessage.length < 1) continue;
+
+            fromDiv.innerHTML = message.from;
+            msgDiv.innerHTML = sanitizedMessage;
 
             msgHolder.appendChild(fromDiv)
             msgHolder.appendChild(msgDiv)
